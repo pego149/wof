@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +22,8 @@ public class Miestnost {
     private Miestnost juznyVychod;
     private Miestnost vychodnyVychod;
     private Miestnost zapadnyVychod;
-    private HashMap<String, Miestnost> miestnosti;
+    private HashMap<String, Dvere> miestnosti;
+    private ArrayList<IItem> predmety;
 
     /**
      * Vytvori miestnost popis ktorej je v parametrom.
@@ -34,6 +36,14 @@ public class Miestnost {
         this.popisMiestnosti = popis;
         this.nazovMiestnosti = nazov;
         this.miestnosti = new HashMap<>();
+        this.predmety = new ArrayList<>();
+    }
+    
+    public Miestnost(String nazov, String popis, ArrayList<IItem> predmety) {
+        this.popisMiestnosti = popis;
+        this.nazovMiestnosti = nazov;
+        this.miestnosti = new HashMap<>();
+        this.predmety = predmety;
     }
 
     /**
@@ -45,18 +55,15 @@ public class Miestnost {
      * @param juh miestnost smerom na juh.
      * @param zapad miestnost smerom na zapad.
      */
-    public void pridajVychod(Miestnost miestnost) {
-        if (miestnost != null) {
-            this.miestnosti.put(miestnost.getNazov(), miestnost);
-        }
-        
+    public void nastavVychod(String nazovDveri, Dvere dvere) {
+            this.miestnosti.put(nazovDveri, dvere);        
     }
     
     public void vypisVychody() {
         System.out.println("Teraz si v miestnosti " + this.getPopis());
         System.out.print("Vychody: ");
-        for (Map.Entry<String, Miestnost> data : this.miestnosti.entrySet()) {
-            System.out.print(data.getKey() + ", ");
+        for (Map.Entry<String, Dvere> data : this.miestnosti.entrySet()) {
+            System.out.print(data.getKey() + " ");
         }
     }
 
@@ -71,7 +78,36 @@ public class Miestnost {
         return this.nazovMiestnosti;
     }
     
-    public Miestnost getPrechod(String ciel) {
+    public Dvere getPrechod(String ciel) {
         return this.miestnosti.get(ciel);
     }
+    
+    public void vypisPredmety() {
+        for (IItem item : this.predmety){
+            System.out.print(item.getNazov() + " ");
+        }
+        System.out.println("");
+    }
+    
+    public IItem zoberPredmet(Prikaz prikaz) {
+        if (!prikaz.maParameter()) {
+            // ak prikaz nema parameter - druhe slovo - nevedno co zobrat
+            System.out.println("Aky predmet?");
+            return null;
+        }
+        String nazov = prikaz.getParameter();
+        IItem hladany = null;
+        for (IItem item : this.predmety){
+            if (item.getNazov().equals(nazov)) {
+                hladany = item;
+                break;
+            }
+        }
+        if (hladany == null) {
+            System.out.println("Predmet sa nenasiel");
+            return null;
+        }
+        predmety.remove(hladany);
+        return hladany;
+    } 
 }

@@ -92,10 +92,20 @@ public class Hra  {
                 return this.ukonciHru(prikaz);
             case "zobrazInventar":
                 this.hrac.vypisInventar();
-                return true;
+                return false;
             case "popisItemu":
                 this.hrac.vypisPopisItemu(prikaz);
-                return true;
+                return false;
+            case "kuk":
+                //porozhliadni sa
+                this.mapa.getAktualnaMiestnost().vypisPredmety();
+                return false;
+            case "zober":
+                IItem item = this.mapa.getAktualnaMiestnost().zoberPredmet(prikaz);
+                if (item != null) {
+                    this.hrac.zoberItemDoIventara(item);
+                }
+                return false;
             default:
                 return false;
         }
@@ -111,7 +121,7 @@ public class Hra  {
         System.out.println("Zabludil si. Si sam. Tulas sa po fakulte.");
         System.out.println();
         System.out.println("Mozes pouzit tieto prikazy:");
-        System.out.println("   chod ukonci pomoc zobrazInventar");
+        System.out.println("   chod ukonci pomoc zobrazInventar popisItemu kuk zober");
     }
 
     /** 

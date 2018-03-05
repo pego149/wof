@@ -8,7 +8,7 @@
  *
  * @author cani3
  */
-public class Item {
+public class Item implements IItem {
     private String nazov;
     private String popis;
     private int cena;

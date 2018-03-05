@@ -13,29 +13,30 @@ import java.util.ArrayList;
  */
 public class Hrac {
     private String meno;
-    private ArrayList<Item> inventar;
+    private ArrayList<IItem> inventar;
     
     public Hrac() {
         this.meno = "Yolo Swaggins";
         this.inventar = new ArrayList<>();
     }
-    public boolean zoberItemDoIventara(Item item) {
+    public boolean zoberItemDoIventara(IItem item) {
         this.inventar.add(item);
         return true;
     }
     
-    public void odoberItemZInventara(Item item) {
+    public void odoberItemZInventara(IItem item) {
         this.inventar.remove(item);
     }
     
-    public void oblecItem(Item item) {
+    public void oblecItem(IItem item) {
     
     }
 
     public void vypisInventar() {
-        for(Item item : this.inventar) {
-            System.out.println(item.getNazov() + ", ");
-        }  
+        for(IItem item : this.inventar) {
+            System.out.print(item.getNazov() + ", ");
+        }
+        System.out.println("");
     }
 
     public void vypisPopisItemu(Prikaz prikaz) {
@@ -45,12 +46,21 @@ public class Hrac {
             return;
         }
         String nazov = prikaz.getParameter();
-        for (Item item : this.inventar) {
+        for (IItem item : this.inventar) {
             if(item.getNazov().equals(nazov)) {
                 System.out.println(item.getNazov() + ": " + item.getPopis());
                 break;
             }
         }
         
+    }
+
+    boolean maItem(String nazov) {
+        for(IItem item : this.inventar){
+            if (item.getNazov() == nazov) {
+                return true;
+            }
+        }
+        return false;
     }
 }

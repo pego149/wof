@@ -14,8 +14,10 @@ import java.util.ArrayList;
 public class Mapa {
     private Miestnost aktualnaMiestnost;
     private Hrac hrac;
+    private ArrayList<Miestnost> miestnosti;
     
     public Mapa(Hrac hrac){
+        this.miestnosti = new ArrayList<>();
         this.vytvorMiestnosti();
         this.hrac = hrac;
     }
@@ -41,7 +43,17 @@ public class Mapa {
         predmetyInfocentra.add(new Isic());
         Miestnost infocentrum = new Miestnost("infocentrum", "infocentrum - questovna", predmetyInfocentra);
         Miestnost vratnica = new Miestnost("vratnica", "vratnica - straty a nalezy");
-
+        this.miestnosti.add(terasa);
+        this.miestnosti.add(aula);
+        this.miestnosti.add(bufet);
+        this.miestnosti.add(labak);
+        this.miestnosti.add(kancelaria);
+        this.miestnosti.add(fra12);
+        this.miestnosti.add(chodba);
+        this.miestnosti.add(vytah);
+        this.miestnosti.add(infocentrum);      
+        this.miestnosti.add(vratnica);
+        
          // inicializacia miestnosti = nastavenie vychodov
         Dvere dTerasaAula = new Dvere(terasa, aula, PodmienkyVstupu.PODMIENKA_ZIADNA);
         terasa.nastavVychod(aula.getNazov(), dTerasaAula);
@@ -115,5 +127,26 @@ public class Mapa {
     
     public IDvere getDvere(String nazov) {
         return this.aktualnaMiestnost.getPrechod(nazov);
+    }
+
+    public void portal(PortalGun portalGun) {
+        boolean jeVMiestnosti = false;
+        for(Miestnost m : this.miestnosti) {
+            if(m == this.aktualnaMiestnost) {
+                for(Miestnost m2 : this.miestnosti) {
+                    if(m.getNazov().equals(portalGun.getOrange()) && m2.getNazov().equals(portalGun.getBlue())) {
+                        this.aktualnaMiestnost = m2;
+                        this.aktualnaMiestnost.vypisVychody();
+                        System.out.println();
+                        return;
+                    } else if (m.getNazov().equals(portalGun.getBlue()) && m2.getNazov().equals(portalGun.getOrange())) {
+                        this.aktualnaMiestnost = m2;
+                        this.aktualnaMiestnost.vypisVychody();
+                        System.out.println();
+                        return;
+                    }
+                }
+            }
+        }
     }
 }

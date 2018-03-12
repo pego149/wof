@@ -22,6 +22,7 @@ public class Hra  {
     private Parser parser;
     private Mapa mapa;
     private Hrac hrac;
+    private PortalGun portalGun;
     
     /**
      * Vytvori a inicializuje hru.
@@ -30,6 +31,7 @@ public class Hra  {
         this.parser = new Parser();
         this.hrac = new Hrac();
         this.mapa = new Mapa(this.hrac);
+        this.portalGun = new PortalGun();
     }
 
     /**
@@ -107,7 +109,7 @@ public class Hra  {
                 }
                 return false;
             case "otocKlucom":
-                if (!prikaz .maParameter()) {
+                if (!prikaz.maParameter()) {
                     System.out.println("Ake dvere?");
                     return false;
                 }
@@ -127,6 +129,23 @@ public class Hra  {
                 } else {
                     System.out.println("Dvere nevyzaduju kluc.");
                 }
+                return false;
+            case "portalGunOrange":
+                if (!prikaz.maParameter()) {
+                    System.out.println("Aka miestnost?");
+                    return false;
+                }
+                this.portalGun.setOrange(prikaz.getParameter());
+                return false;
+            case "portalGunBlue":
+                if (!prikaz.maParameter()) {
+                    System.out.println("Aka miestnost?");
+                    return false;
+                }
+                this.portalGun.setBlue(prikaz.getParameter());
+                return false;
+            case "portalGun":
+                this.mapa.portal(this.portalGun);
                 return false;
             default:
                 return false;

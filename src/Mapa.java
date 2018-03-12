@@ -96,7 +96,7 @@ public class Mapa {
         String smer = prikaz.getParameter();
 
         // Pokus o opustenie aktualnej miestnosti danym vychodom.
-        Dvere dvere = this.aktualnaMiestnost.getPrechod(smer);
+        IDvere dvere = this.aktualnaMiestnost.getPrechod(smer);
         if(dvere == null) {
             System.out.println("Tam nie je vychod");
             return;
@@ -111,5 +111,9 @@ public class Mapa {
             this.aktualnaMiestnost.vypisVychody();
             System.out.println();
         }
+    }
+    
+    public IDvere getDvere(String nazov) {
+        return this.aktualnaMiestnost.getPrechod(nazov);
     }
 }

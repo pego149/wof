@@ -106,6 +106,28 @@ public class Hra  {
                     this.hrac.zoberItemDoIventara(item);
                 }
                 return false;
+            case "otocKlucom":
+                if (!prikaz .maParameter()) {
+                    System.out.println("Ake dvere?");
+                    return false;
+                }
+                String nazovDveri = prikaz.getParameter();
+                IDvere dvere = this.mapa.getDvere(nazovDveri);
+                if ( dvere == null) {
+                    System.out.println("Dvere neexistuju.");
+                    return false;
+                }
+                if ( dvere instanceof ZamykatelneDvere ) {
+                    ZamykatelneDvere zamDvere = (ZamykatelneDvere)dvere;
+                    if (this.hrac.maKlucKDveram(zamDvere)) {
+                        zamDvere.prepniStavZamknutia();
+                    } else {
+                        System.out.println("Nemas kluc.");
+                    }
+                } else {
+                    System.out.println("Dvere nevyzaduju kluc.");
+                }
+                return false;
             default:
                 return false;
         }

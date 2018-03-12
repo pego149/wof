@@ -8,7 +8,7 @@
  *
  * @author cani3
  */
-public class Dvere {
+public class Dvere implements IDvere {
     private Miestnost vstup;
     private Miestnost vystup;
     private PodmienkyVstupu podmienka;
@@ -19,6 +19,7 @@ public class Dvere {
         this.podmienka = podmienka;
     }
     
+    @Override
     public Miestnost skusPrechod(Miestnost odkial, Hrac hrac) {
         boolean jeVstup = false;
         Miestnost ciel;

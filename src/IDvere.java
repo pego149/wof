@@ -8,8 +8,6 @@
  *
  * @author cani3
  */
-public enum ItemType {
-    ITEM_KARTA,
-    ITEM_EQUIP_TOPANKY,
-    ITEM_KLUC;
+public interface IDvere {
+    Miestnost skusPrechod(Miestnost odkial, Hrac hrac);
 }

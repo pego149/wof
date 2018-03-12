@@ -22,7 +22,7 @@ public class Miestnost {
     private Miestnost juznyVychod;
     private Miestnost vychodnyVychod;
     private Miestnost zapadnyVychod;
-    private HashMap<String, Dvere> miestnosti;
+    private HashMap<String, IDvere> miestnosti;
     private ArrayList<IItem> predmety;
 
     /**
@@ -55,14 +55,14 @@ public class Miestnost {
      * @param juh miestnost smerom na juh.
      * @param zapad miestnost smerom na zapad.
      */
-    public void nastavVychod(String nazovDveri, Dvere dvere) {
+    public void nastavVychod(String nazovDveri, IDvere dvere) {
             this.miestnosti.put(nazovDveri, dvere);        
     }
     
     public void vypisVychody() {
         System.out.println("Teraz si v miestnosti " + this.getPopis());
         System.out.print("Vychody: ");
-        for (Map.Entry<String, Dvere> data : this.miestnosti.entrySet()) {
+        for (Map.Entry<String, IDvere> data : this.miestnosti.entrySet()) {
             System.out.print(data.getKey() + " ");
         }
     }
@@ -78,7 +78,7 @@ public class Miestnost {
         return this.nazovMiestnosti;
     }
     
-    public Dvere getPrechod(String ciel) {
+    public IDvere getPrechod(String ciel) {
         return this.miestnosti.get(ciel);
     }
     
@@ -109,5 +109,5 @@ public class Miestnost {
         }
         predmety.remove(hladany);
         return hladany;
-    } 
+    }
 }

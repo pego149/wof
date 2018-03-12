@@ -63,4 +63,16 @@ public class Hrac {
         }
         return false;
     }
+    
+    boolean maKlucKDveram(ZamykatelneDvere dvere) {
+        for(IItem item : this.inventar){
+            if (item.getTyp() == ItemType.ITEM_KLUC) {
+                Kluc kluc = (Kluc)item;
+                if (kluc.getDvere() == dvere) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

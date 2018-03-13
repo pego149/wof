@@ -1,4 +1,13 @@
+package Hra;
 
+
+import Hrac.Hrac;
+import Dvere.PodmienkyVstupu;
+import Itemy.Isic;
+import Itemy.Kluc;
+import Dvere.ZamykatelneDvere;
+import Dvere.IDvere;
+import Dvere.Dvere;
 import java.util.ArrayList;
 
 /*
@@ -39,9 +48,7 @@ public class Mapa {
         Miestnost fra12 = new Miestnost("FRA12", "FRA12 - Najs ucebna");
         Miestnost chodba = new Miestnost("chodba", "Chodba - Pozor smyka sa");
         Miestnost vytah = new Miestnost("vytah", "vytah - nefugnuje");
-        ArrayList<IItem> predmetyInfocentra = new ArrayList<>();
-        predmetyInfocentra.add(new Isic());
-        Miestnost infocentrum = new Miestnost("infocentrum", "infocentrum - questovna", predmetyInfocentra);
+        Miestnost infocentrum = new Miestnost("infocentrum", "infocentrum - questovna");
         Miestnost vratnica = new Miestnost("vratnica", "vratnica - straty a nalezy");
         this.miestnosti.add(terasa);
         this.miestnosti.add(aula);
@@ -64,7 +71,7 @@ public class Mapa {
         Dvere dTerasaBufet = new Dvere(terasa, bufet, PodmienkyVstupu.PODMIENKA_ZIADNA);
         terasa.nastavVychod(bufet.getNazov(), dTerasaBufet);
         bufet.nastavVychod(terasa.getNazov(), dTerasaBufet);
-        Dvere dLabakKancelaria = new Dvere(labak, kancelaria, PodmienkyVstupu.PODMIENKA_KLUC);
+        ZamykatelneDvere dLabakKancelaria = new ZamykatelneDvere(labak, kancelaria);
         labak.nastavVychod(kancelaria.getNazov(), dLabakKancelaria);
         kancelaria.nastavVychod(labak.getNazov(), dLabakKancelaria);
         Dvere dChodbaFra12 = new Dvere(chodba, fra12, PodmienkyVstupu.PODMIENKA_ISIC);
@@ -88,6 +95,10 @@ public class Mapa {
         Dvere dChodbaBufet = new Dvere(bufet, chodba, PodmienkyVstupu.PODMIENKA_ISIC);
         chodba.nastavVychod(bufet.getNazov(), dChodbaVratnica);
         bufet.nastavVychod(chodba.getNazov(), dChodbaVratnica);
+        
+        //pridavanie predmetov
+        infocentrum.pridajPredmetDoMiestnosti(new Isic());
+        vratnica.pridajPredmetDoMiestnosti(new Kluc("StriebornyKluc", "", -1, dLabakKancelaria));
         
         this.aktualnaMiestnost = terasa;  // startovacia miestnost hry
     }

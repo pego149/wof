@@ -1,3 +1,10 @@
+package Dvere;
+
+
+import Hrac.Hrac;
+import Hra.Miestnost;
+import Dvere.IDvere;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -36,9 +43,11 @@ public class ZamykatelneDvere implements IDvere {
     
     public void prepniStavZamknutia() {
         if (this.jeZamknute == true) {
-            this.jeZamknute = false;            
+            this.jeZamknute = false;
+            System.out.println("Dvere sa odomkli.");
         } else {
             this.jeZamknute = true;
+            System.out.println("Dvere sa zamkli.");
         }
     }
 

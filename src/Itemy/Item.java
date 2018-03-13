@@ -1,3 +1,8 @@
+package Itemy;
+
+
+import Itemy.ItemType;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,48 +13,34 @@
  *
  * @author cani3
  */
-public class Kluc implements IItem {
+public class Item implements IItem {
     private String nazov;
     private String popis;
     private int cena;
     private ItemType typ;
-    private ZamykatelneDvere dvere; 
 
-    public Kluc(String nazov, String popis, int cena, ZamykatelneDvere dvere) {
+    public Item(String nazov, String popis, int cena, ItemType typ) {
         this.nazov = nazov;
+        this.popis = popis;
         this.cena = cena;
-        this.typ = ItemType.ITEM_KLUC;
-        this.dvere = dvere;
-        
-        if(popis.isEmpty()) {
-            this.popis = "Kluc od:" + this.dvere;
-        } else {
-            this.popis = popis;
-        }
+        this.typ = typ;
     }
 
-    public ZamykatelneDvere getDvere() {
-        return dvere;
-    }
-
-    @Override
     public String getNazov() {
         return nazov;
     }
 
-    @Override
     public String getPopis() {
         return popis;
     }
 
-    @Override
     public int getCena() {
         return cena;
     }
 
-    @Override
     public ItemType getTyp() {
         return typ;
     }
+    
     
 }

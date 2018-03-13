@@ -1,3 +1,5 @@
+package Itemy;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,8 +10,8 @@
  *
  * @author cani3
  */
-public enum PodmienkyVstupu {
-    PODMIENKA_ZIADNA,
-    PODMIENKA_ISIC,
-    PODMIENKA_KLUC;
+public enum ItemType {
+    ITEM_KARTA,
+    ITEM_EQUIP_TOPANKY,
+    ITEM_KLUC;
 }

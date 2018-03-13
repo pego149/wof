@@ -1,4 +1,8 @@
+package Hra;
 
+
+import Itemy.IItem;
+import Dvere.IDvere;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,11 +43,8 @@ public class Miestnost {
         this.predmety = new ArrayList<>();
     }
     
-    public Miestnost(String nazov, String popis, ArrayList<IItem> predmety) {
-        this.popisMiestnosti = popis;
-        this.nazovMiestnosti = nazov;
-        this.miestnosti = new HashMap<>();
-        this.predmety = predmety;
+    public void pridajPredmetDoMiestnosti(IItem item) {
+        this.predmety.add(item);
     }
 
     /**

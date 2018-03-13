@@ -1,3 +1,11 @@
+package Hra;
+
+
+import Hrac.Hrac;
+import Itemy.IItem;
+import Dvere.ZamykatelneDvere;
+import Dvere.IDvere;
+
 /**
  * Trieda Hra je hlavna trieda aplikacie "World of FRI".
  * "World of FRI" je velmi jednoducha textova hra - adventura. 
@@ -93,10 +101,10 @@ public class Hra  {
             case "ukonci":
                 return this.ukonciHru(prikaz);
             case "zobrazInventar":
-                this.hrac.vypisInventar();
+                this.hrac.getInventar().vypisInventar();
                 return false;
             case "popisItemu":
-                this.hrac.vypisPopisItemu(prikaz);
+                this.hrac.getInventar().vypisPopisItemu(prikaz);
                 return false;
             case "kuk":
                 //porozhliadni sa
@@ -105,7 +113,7 @@ public class Hra  {
             case "zober":
                 IItem item = this.mapa.getAktualnaMiestnost().zoberPredmet(prikaz);
                 if (item != null) {
-                    this.hrac.zoberItemDoIventara(item);
+                    this.hrac.getInventar().zoberItemDoIventara(item);
                 }
                 return false;
             case "otocKlucom":
@@ -162,7 +170,8 @@ public class Hra  {
         System.out.println("Zabludil si. Si sam. Tulas sa po fakulte.");
         System.out.println();
         System.out.println("Mozes pouzit tieto prikazy:");
-        System.out.println("   chod ukonci pomoc zobrazInventar popisItemu kuk zober");
+        System.out.println("   chod ukonci pomoc zobrazInventar popisItemu kuk zober otocKlucom");
+        this.mapa.getAktualnaMiestnost().vypisVychody();
     }
 
     /** 

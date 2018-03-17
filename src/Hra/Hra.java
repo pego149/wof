@@ -139,18 +139,20 @@ public class Hra  {
                 }
                 return false;
             case "portalGunOrange":
-                if (!prikaz.maParameter()) {
-                    System.out.println("Aka miestnost?");
-                    return false;
-                }
-                this.portalGun.setOrange(prikaz.getParameter());
+                if (this.hrac.getInventar().maItem("PortalGun")) {
+                    this.portalGun.setOrange(this.mapa.getAktualnaMiestnost().getNazov());
+                    System.out.println("Oranzovy portal je v miestnosti: " + this.mapa.getAktualnaMiestnost().getNazov());
+                } else {
+                    System.out.println("Nemas portalgun.");
+                }                
                 return false;
             case "portalGunBlue":
-                if (!prikaz.maParameter()) {
-                    System.out.println("Aka miestnost?");
-                    return false;
-                }
-                this.portalGun.setBlue(prikaz.getParameter());
+                if (this.hrac.getInventar().maItem("PortalGun")) {
+                    this.portalGun.setBlue(this.mapa.getAktualnaMiestnost().getNazov());
+                    System.out.println("Modry portal je v miestnosti: " + this.mapa.getAktualnaMiestnost().getNazov());
+                } else {
+                    System.out.println("Nemas portalgun.");
+                } 
                 return false;
             case "portalGun":
                 this.mapa.portal(this.portalGun);
@@ -170,7 +172,11 @@ public class Hra  {
         System.out.println("Zabludil si. Si sam. Tulas sa po fakulte.");
         System.out.println();
         System.out.println("Mozes pouzit tieto prikazy:");
-        System.out.println("   chod ukonci pomoc zobrazInventar popisItemu kuk zober otocKlucom");
+        System.out.print("   chod ukonci pomoc zobrazInventar popisItemu kuk zober otocKlucom portalGun");
+        if (this.hrac.getInventar().maItem("PortalGun")) {
+           System.out.print(" portalGunOrange portalGunBlue");
+        }
+        System.out.println();
         this.mapa.getAktualnaMiestnost().vypisVychody();
     }
 

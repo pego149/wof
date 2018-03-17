@@ -13,5 +13,6 @@ package Itemy;
 public enum ItemType {
     ITEM_KARTA,
     ITEM_EQUIP_TOPANKY,
-    ITEM_KLUC;
+    ITEM_KLUC,
+    ITEM_PORTALGUN;
 }

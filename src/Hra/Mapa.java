@@ -8,6 +8,8 @@ import Itemy.Kluc;
 import Dvere.ZamykatelneDvere;
 import Dvere.IDvere;
 import Dvere.Dvere;
+import Itemy.Item;
+import Itemy.ItemType;
 import java.util.ArrayList;
 
 /*
@@ -93,12 +95,13 @@ public class Mapa {
         infocentrum.nastavVychod(vratnica.getNazov(), dInfocentrumVratnica);
         vratnica.nastavVychod(infocentrum.getNazov(), dInfocentrumVratnica);
         Dvere dChodbaBufet = new Dvere(bufet, chodba, PodmienkyVstupu.PODMIENKA_ISIC);
-        chodba.nastavVychod(bufet.getNazov(), dChodbaVratnica);
-        bufet.nastavVychod(chodba.getNazov(), dChodbaVratnica);
+        chodba.nastavVychod(bufet.getNazov(), dChodbaBufet);
+        bufet.nastavVychod(chodba.getNazov(), dChodbaBufet);
         
         //pridavanie predmetov
         infocentrum.pridajPredmetDoMiestnosti(new Isic());
         vratnica.pridajPredmetDoMiestnosti(new Kluc("StriebornyKluc", "", -1, dLabakKancelaria));
+        bufet.pridajPredmetDoMiestnosti(new Item("PortalGun", "Portal Gun na telepotaciu", 100, ItemType.ITEM_PORTALGUN));
         
         this.aktualnaMiestnost = terasa;  // startovacia miestnost hry
     }
@@ -141,7 +144,6 @@ public class Mapa {
     }
 
     public void portal(PortalGun portalGun) {
-        boolean jeVMiestnosti = false;
         for(Miestnost m : this.miestnosti) {
             if(m == this.aktualnaMiestnost) {
                 for(Miestnost m2 : this.miestnosti) {
@@ -159,5 +161,6 @@ public class Mapa {
                 }
             }
         }
+        System.out.println("V miestnosti sa nenachadza portal.");
     }
 }

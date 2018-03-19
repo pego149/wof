@@ -1,6 +1,7 @@
 package Hra;
 
 
+import Itemy.PortalGun;
 import Hrac.Hrac;
 import Dvere.PodmienkyVstupu;
 import Itemy.Isic;
@@ -133,6 +134,11 @@ public class Mapa {
         if (novaMiestnost == null) {
             System.out.println("Nemate opravneneie na vstup!");
         } else {
+            if (novaMiestnost.isTrebaNavleky()) {
+                if (!this.hrac.getInventar().maEquipnute(ItemType.ITEM_NAVLEKY)) {
+                    return;
+                }
+            }
             this.aktualnaMiestnost = novaMiestnost;
             this.aktualnaMiestnost.vypisVychody();
             System.out.println();

@@ -14,5 +14,6 @@ public enum ItemType {
     ITEM_KARTA,
     ITEM_EQUIP_TOPANKY,
     ITEM_KLUC,
-    ITEM_PORTALGUN;
+    ITEM_PORTALGUN,
+    ITEM_NAVLEKY;
 }

@@ -1,6 +1,7 @@
 package Hra;
 
 
+import Itemy.PortalGun;
 import Hrac.Hrac;
 import Itemy.IItem;
 import Dvere.ZamykatelneDvere;
@@ -154,8 +155,16 @@ public class Hra  {
                     System.out.println("Nemas portalgun.");
                 } 
                 return false;
-            case "portalGun":
+            case "portal":
                 this.mapa.portal(this.portalGun);
+                return false;
+            case "nasad":
+                if (!prikaz.maParameter()) {
+                    System.out.println("Aky item?");
+                    return false;
+                }
+                String nazovItemu = prikaz.getParameter();
+                hrac.nasadItem(nazovItemu);
                 return false;
             default:
                 return false;
@@ -172,7 +181,7 @@ public class Hra  {
         System.out.println("Zabludil si. Si sam. Tulas sa po fakulte.");
         System.out.println();
         System.out.println("Mozes pouzit tieto prikazy:");
-        System.out.print("   chod ukonci pomoc zobrazInventar popisItemu kuk zober otocKlucom portalGun");
+        System.out.print("   chod ukonci pomoc zobrazInventar popisItemu kuk zober otocKlucom nasad portal");
         if (this.hrac.getInventar().maItem("PortalGun")) {
            System.out.print(" portalGunOrange portalGunBlue");
         }

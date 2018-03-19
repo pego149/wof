@@ -42,4 +42,8 @@ public class Hrac {
     public Inventar getInventar() {
         return inventar;
     }
+    
+    public void nasadItem(String item) {
+        this.inventar.nasadItem(item);
+    }
 }

@@ -28,6 +28,7 @@ public class Miestnost {
     private Miestnost zapadnyVychod;
     private HashMap<String, IDvere> miestnosti;
     private ArrayList<IItem> predmety;
+    private boolean trebaNavleky;
 
     /**
      * Vytvori miestnost popis ktorej je v parametrom.
@@ -41,6 +42,19 @@ public class Miestnost {
         this.nazovMiestnosti = nazov;
         this.miestnosti = new HashMap<>();
         this.predmety = new ArrayList<>();
+        this.trebaNavleky = false;
+    }
+    
+    public Miestnost(String nazov, String popis, boolean trebaNavleky) {
+        this.popisMiestnosti = popis;
+        this.nazovMiestnosti = nazov;
+        this.miestnosti = new HashMap<>();
+        this.predmety = new ArrayList<>();
+        this.trebaNavleky = trebaNavleky;
+    }
+
+    public boolean isTrebaNavleky() {
+        return trebaNavleky;
     }
     
     public void pridajPredmetDoMiestnosti(IItem item) {

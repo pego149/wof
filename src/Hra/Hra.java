@@ -40,7 +40,11 @@ public class Hra  {
         this.parser = new Parser();
         this.hrac = new Hrac();
         this.mapa = new Mapa(this.hrac);
-        this.portalGun = new PortalGun();
+        this.portalGun = new PortalGun(this);
+    }
+
+    public Mapa getMapa() {
+        return mapa;
     }
 
     /**
@@ -141,7 +145,7 @@ public class Hra  {
                 return false;
             case "portalGunOrange":
                 if (this.hrac.getInventar().maItem("PortalGun")) {
-                    this.portalGun.setOrange(this.mapa.getAktualnaMiestnost().getNazov());
+                    this.portalGun.setOrange(this.mapa.getAktualnaMiestnost());
                     System.out.println("Oranzovy portal je v miestnosti: " + this.mapa.getAktualnaMiestnost().getNazov());
                 } else {
                     System.out.println("Nemas portalgun.");
@@ -149,14 +153,11 @@ public class Hra  {
                 return false;
             case "portalGunBlue":
                 if (this.hrac.getInventar().maItem("PortalGun")) {
-                    this.portalGun.setBlue(this.mapa.getAktualnaMiestnost().getNazov());
+                    this.portalGun.setBlue(this.mapa.getAktualnaMiestnost());
                     System.out.println("Modry portal je v miestnosti: " + this.mapa.getAktualnaMiestnost().getNazov());
                 } else {
                     System.out.println("Nemas portalgun.");
                 } 
-                return false;
-            case "portal":
-                this.mapa.portal(this.portalGun);
                 return false;
             case "nasad":
                 if (!prikaz.maParameter()) {
@@ -181,7 +182,7 @@ public class Hra  {
         System.out.println("Zabludil si. Si sam. Tulas sa po fakulte.");
         System.out.println();
         System.out.println("Mozes pouzit tieto prikazy:");
-        System.out.print("   chod ukonci pomoc zobrazInventar popisItemu kuk zober otocKlucom nasad portal");
+        System.out.print("   chod ukonci pomoc zobrazInventar popisItemu kuk zober otocKlucom nasad");
         if (this.hrac.getInventar().maItem("PortalGun")) {
            System.out.print(" portalGunOrange portalGunBlue");
         }

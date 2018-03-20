@@ -29,6 +29,8 @@ public class Miestnost {
     private HashMap<String, IDvere> miestnosti;
     private ArrayList<IItem> predmety;
     private boolean trebaNavleky;
+    private Miestnost portalOrange;
+    private Miestnost portalBlue;
 
     /**
      * Vytvori miestnost popis ktorej je v parametrom.
@@ -51,6 +53,22 @@ public class Miestnost {
         this.miestnosti = new HashMap<>();
         this.predmety = new ArrayList<>();
         this.trebaNavleky = trebaNavleky;
+    }
+
+    public void setPortalBlue(Miestnost portal) {
+        this.portalBlue = portal;
+    }
+    
+    public void setPortalOrange(Miestnost portal) {
+        this.portalOrange = portal;
+    }
+
+    public Miestnost getPortalOrange() {
+        return portalOrange;
+    }
+
+    public Miestnost getPortalBlue() {
+        return portalBlue;
     }
 
     public boolean isTrebaNavleky() {
@@ -79,6 +97,12 @@ public class Miestnost {
         System.out.print("Vychody: ");
         for (Map.Entry<String, IDvere> data : this.miestnosti.entrySet()) {
             System.out.print(data.getKey() + " ");
+        }
+        if (this.portalOrange != null) {
+            System.out.print("portalOrange->" + this.portalOrange.getNazov() + " ");
+        }
+        if (this.portalBlue != null) {
+            System.out.print("portalBlue->" + this.portalBlue.getNazov() + " ");
         }
     }
 

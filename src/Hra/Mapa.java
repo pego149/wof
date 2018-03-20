@@ -121,7 +121,25 @@ public class Mapa {
         }
 
         String smer = prikaz.getParameter();
-
+        
+        if(this.aktualnaMiestnost.getPortalBlue() != null) {
+            if (this.aktualnaMiestnost.getPortalBlue().getNazov().equals(smer)) {
+                this.aktualnaMiestnost = this.aktualnaMiestnost.getPortalBlue();
+                this.aktualnaMiestnost.vypisVychody();
+                System.out.println();
+                return;
+            }
+        }
+        
+        if(this.aktualnaMiestnost.getPortalOrange() != null) {
+            if (this.aktualnaMiestnost.getPortalOrange().getNazov().equals(smer)) {
+                this.aktualnaMiestnost = this.aktualnaMiestnost.getPortalOrange();
+                this.aktualnaMiestnost.vypisVychody();
+                System.out.println();
+                return;
+            }
+        }
+        
         // Pokus o opustenie aktualnej miestnosti danym vychodom.
         IDvere dvere = this.aktualnaMiestnost.getPrechod(smer);
         if(dvere == null) {
@@ -149,24 +167,7 @@ public class Mapa {
         return this.aktualnaMiestnost.getPrechod(nazov);
     }
 
-    public void portal(PortalGun portalGun) {
-        for(Miestnost m : this.miestnosti) {
-            if(m == this.aktualnaMiestnost) {
-                for(Miestnost m2 : this.miestnosti) {
-                    if(m.getNazov().equals(portalGun.getOrange()) && m2.getNazov().equals(portalGun.getBlue())) {
-                        this.aktualnaMiestnost = m2;
-                        this.aktualnaMiestnost.vypisVychody();
-                        System.out.println();
-                        return;
-                    } else if (m.getNazov().equals(portalGun.getBlue()) && m2.getNazov().equals(portalGun.getOrange())) {
-                        this.aktualnaMiestnost = m2;
-                        this.aktualnaMiestnost.vypisVychody();
-                        System.out.println();
-                        return;
-                    }
-                }
-            }
-        }
-        System.out.println("V miestnosti sa nenachadza portal.");
+    public ArrayList<Miestnost> getMiestnosti() {
+        return this.miestnosti;
     }
 }

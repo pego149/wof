@@ -14,5 +14,5 @@ import hra.Prikaz;
 public interface IPokecatelny {
     void getPrikazy();
     String getNazov();
-    void spracujPrikaz(Prikaz prikaz);
+    boolean spracujPrikaz(Prikaz prikaz);
 }

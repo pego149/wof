@@ -40,7 +40,7 @@ public class Hra  {
     public Hra() {
         this.parser = new Parser();
         this.hrac = new Hrac();
-        this.mapa = new Mapa(this.hrac);
+        this.mapa = new Mapa(this);
         this.portalGun = new PortalGun(this);
     }
 
@@ -89,16 +89,19 @@ public class Hra  {
      */
     private boolean vykonajPrikaz(Prikaz prikaz) {
         boolean jeKoniec = false;
-
+ 
+        IPokecatelny aktualny = this.hrac.getAktualnyPokecatelny();
+        if (aktualny != null) {
+            if (aktualny.spracujPrikaz(prikaz)) {
+                System.out.println("Odisiel si od " + aktualny.getNazov() + ".");
+                this.hrac.setAktualnyPokecatelny(null);
+            }
+        }
+        
         if (prikaz.jeNeznamy()) {
             System.out.println("Nerozumiem, co mas na mysli...");
             return false;
         }
-        
-        if (this.hrac.getAktualnyPokecatelny() !=null) {
-            this.hrac.getAktualnyPokecatelny().spracujPrikaz(prikaz);
-        }
-
         String nazovPrikazu = prikaz.getNazov();
         
         switch (nazovPrikazu) {
@@ -119,6 +122,7 @@ public class Hra  {
             case "kuk":
                 //porozhliadni sa
                 this.mapa.getAktualnaMiestnost().vypisPredmety();
+                this.mapa.getAktualnaMiestnost().vypisNpc();
                 return false;
             case "zober":
                 IItem item = this.mapa.getAktualnaMiestnost().zoberPredmet(prikaz);
@@ -224,5 +228,9 @@ public class Hra  {
         } else {
             return true;
         }
+    }
+
+    public Hrac getHrac() {
+        return hrac;
     }
 }

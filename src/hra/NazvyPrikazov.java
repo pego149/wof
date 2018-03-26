@@ -15,7 +15,7 @@ public class NazvyPrikazov {
     private static final String[] PLATNE_PRIKAZY = {
         "chod", "ukonci", "pomoc", "zobrazInventar", "popisItemu", 
         "kuk", "zober", "portalGunOrange", "portalGunBlue", 
-        "otocKlucom", "nasad", "pokecaj"
+        "otocKlucom", "nasad", "pokecaj", "vypisKluce", "dajKluc", "odid"
     };
 
     /**

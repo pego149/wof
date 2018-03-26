@@ -13,6 +13,7 @@ import itemy.Item;
 import itemy.ItemType;
 import itemy.Navleky;
 import java.util.ArrayList;
+import npc.Vratnik;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,13 +27,13 @@ import java.util.ArrayList;
  */
 public class Mapa {
     private Miestnost aktualnaMiestnost;
-    private Hrac hrac;
+    private Hra hra;
     private ArrayList<Miestnost> miestnosti;
     
-    public Mapa(Hrac hrac){
+    public Mapa(Hra hra){
         this.miestnosti = new ArrayList<>();
+        this.hra = hra;
         this.vytvorMiestnosti();
-        this.hrac = hrac;
     }
     
     public Miestnost getAktualnaMiestnost() {
@@ -102,7 +103,9 @@ public class Mapa {
         
         //pridavanie predmetov
         infocentrum.pridajPredmetDoMiestnosti(new Isic());
-        vratnica.pridajPredmetDoMiestnosti(new Kluc("StriebornyKluc", "", -1, dLabakKancelaria));
+        Vratnik vratnik = new Vratnik(this.hra);
+        vratnik.getInventar().zoberItemDoIventara(new Kluc("StriebornyKluc", "", -1, dLabakKancelaria));
+        vratnica.pridajNPCDoMiestnosti(vratnik);
         bufet.pridajPredmetDoMiestnosti(new Item("PortalGun", "Portal Gun na telepotaciu", 100, ItemType.ITEM_PORTALGUN));
         bufet.pridajPredmetDoMiestnosti(new Navleky("Navleky", "MADE IN CHINA", 20));
         
@@ -149,13 +152,13 @@ public class Mapa {
             return;
         }
         
-        Miestnost novaMiestnost = dvere.skusPrechod(this.aktualnaMiestnost, this.hrac);
+        Miestnost novaMiestnost = dvere.skusPrechod(this.aktualnaMiestnost, this.hra.getHrac());
         
         if (novaMiestnost == null) {
             System.out.println("Nemate opravneneie na vstup!");
         } else {
             if (novaMiestnost.isTrebaNavleky()) {
-                if (!this.hrac.getInventar().maEquipnute(ItemType.ITEM_NAVLEKY)) {
+                if (!this.hra.getHrac().getInventar().maEquipnute(ItemType.ITEM_NAVLEKY)) {
                     System.out.println("Su potrebne navleky.");
                     return;
                 }

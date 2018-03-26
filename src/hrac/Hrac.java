@@ -1,11 +1,13 @@
 package hrac;
 
 
+import inventar.Inventar;
 import itemy.IItem;
 import itemy.ItemType;
 import itemy.Kluc;
 import dvere.ZamykatelneDvere;
 import hra.Prikaz;
+import inventar.InventarHraca;
 import npc.IPokecatelny;
 
 /*
@@ -20,13 +22,13 @@ import npc.IPokecatelny;
  */
 public class Hrac {
     private String meno;
-    private Inventar inventar;
+    private InventarHraca inventar;
     private IPokecatelny aktualnyPokecatelny;
     
     
     public Hrac() {
         this.meno = "Yolo Swaggins";
-        this.inventar = new Inventar();
+        this.inventar = new InventarHraca();
         this.aktualnyPokecatelny = null;
     }
 
@@ -50,7 +52,7 @@ public class Hrac {
         return false;
     }
 
-    public Inventar getInventar() {
+    public InventarHraca getInventar() {
         return inventar;
     }
     

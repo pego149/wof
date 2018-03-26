@@ -5,7 +5,7 @@
  */
 package itemy;
 
-import hrac.SlotyInventara;
+import inventar.SlotyInventara;
 
 /**
  *

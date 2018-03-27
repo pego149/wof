@@ -119,13 +119,14 @@ public class Mapa {
      * @param prikaz
      */
     public void chodDoMiestnosti(Prikaz prikaz) {
-        if (!prikaz.maParameter()) {
+        ArrayList<String> list = prikaz.getParametre();
+        if (list.size() == 0) {
             // ak prikaz nema parameter - druhe slovo - nevedno kam ist
             System.out.println("Chod kam?");
             return;
         }
 
-        String smer = prikaz.getParameter();
+        String smer = list.get(0);
         
         if(this.aktualnaMiestnost.getPortalBlue() != null) {
             if (this.aktualnaMiestnost.getPortalBlue().getNazov().equals(smer)) {

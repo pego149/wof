@@ -1,5 +1,7 @@
 package hra;
 
+import java.util.ArrayList;
+
 /**
  * Trieda prikaz implemntuje casti prikazu, ktore moze hrac zadat.
  * V tejto verzii prikaz tvoria dve slova: nazov prikazu a druhe slovo.
@@ -19,7 +21,7 @@ package hra;
 
 public class Prikaz {
     private String nazovPrikazu;
-    private String parameter;
+    private ArrayList<String> parametere;
 
     /**
      * Inicializuje slova prikazu dvomi zadanymi parametrami. Jeden alebo oba
@@ -29,9 +31,9 @@ public class Prikaz {
      *                       null, ak je prikaz neznamy.
      * @param parameter druhe slovo prikazu.
      */
-    public Prikaz(String nazovPrikazu, String parameter) {
+    public Prikaz(String nazovPrikazu, ArrayList<String> parametre) {
         this.nazovPrikazu = nazovPrikazu;
-        this.parameter = parameter;
+        this.parametere = parametre;
     }
 
     /**
@@ -44,8 +46,8 @@ public class Prikaz {
     /**
      * @return druhe slovo - parameter prikazu.
      */
-    public String getParameter() {
-        return this.parameter;
+    public ArrayList<String> getParametre() {
+        return this.parametere;
     }
 
     /**
@@ -53,12 +55,5 @@ public class Prikaz {
      */
     public boolean jeNeznamy() {
         return this.nazovPrikazu == null;
-    }
-
-    /**
-     * @return true, ak prikaz ma parameter.
-     */
-    public boolean maParameter() {
-        return this.parameter != null;
     }
 }

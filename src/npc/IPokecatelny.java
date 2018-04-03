@@ -5,15 +5,12 @@
  */
 package npc;
 
-import hra.Prikaz;
+import hra.IPrikazy;
 
 /**
  *
  * @author cani3
  */
-public interface IPokecatelny {
-    void getPrikazy();
+public interface IPokecatelny extends IPrikazy {
     String getNazov();
-    boolean spracujPrikaz(Prikaz prikaz);
-    String[] getPLATNE_PRIKAZY();
 }

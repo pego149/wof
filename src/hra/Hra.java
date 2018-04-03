@@ -7,6 +7,7 @@ import itemy.IItem;
 import dvere.ZamykatelneDvere;
 import dvere.IDvere;
 import java.util.ArrayList;
+import miestnosti.Miestnost;
 import npc.IPokecatelny;
 
 /**
@@ -229,6 +230,18 @@ public class Hra  {
         }
         System.out.println();
         this.mapa.getAktualnaMiestnost().vypisVychody();
+        
+        Miestnost aktualnaMiestnost = this.mapa.getAktualnaMiestnost();
+        if (aktualnaMiestnost instanceof IPrikazy) {
+            IPrikazy prikazovaMiestnost = (IPrikazy)aktualnaMiestnost;
+            prikazovaMiestnost.getPrikazy();
+        }
+        for (IDvere dvere : aktualnaMiestnost.getVsetkyDvere()) {
+            if (dvere instanceof IPrikazy) {
+                IPrikazy prikazoveDvere = (IPrikazy)dvere;
+                prikazoveDvere.getPrikazy();
+            }
+        }
     }
 
     /** 
@@ -264,10 +277,31 @@ public class Hra  {
         IPokecatelny pokec = this.hrac.getAktualnyPokecatelny();
         if (pokec != null) {
             prikazy = pokec.getPLATNE_PRIKAZY();
-        }
-        for (int i = 0; i < prikazy.length; i++) {
-            if (prikazy[i].equals(nazov)) {
-                return true;
+            for (int i = 0; i < prikazy.length; i++) {
+                if (prikazy[i].equals(nazov)) {
+                    return true;
+                }
+            }
+        } else {    
+            ArrayList<String[]> poliaPrikazov = new ArrayList<>();
+            poliaPrikazov.add(prikazy);
+            Miestnost aktualnaMiestnost = this.mapa.getAktualnaMiestnost();
+            if (aktualnaMiestnost instanceof IPrikazy) {
+                IPrikazy prikazovaMiestnost = (IPrikazy)aktualnaMiestnost;
+                prikazovaMiestnost.getPrikazy();
+            }
+            for (IDvere dvere : aktualnaMiestnost.getVsetkyDvere()) {
+                if (dvere instanceof IPrikazy) {
+                    IPrikazy prikazoveDvere = (IPrikazy)dvere;
+                    prikazoveDvere.getPrikazy();
+                }
+            }
+            for (String[] polePrikazov : poliaPrikazov) {
+                for (int i = 0; i < polePrikazov.length; i++) {
+                    if(polePrikazov[i].equals(nazov)) {
+                        return true;
+                    }
+                }
             }
         }
         // ak algoritmus dosiahne tento bod, parameter nie je platny prikaz

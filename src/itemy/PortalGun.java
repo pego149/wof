@@ -2,7 +2,7 @@ package itemy;
 
 import dvere.Dvere;
 import hra.Hra;
-import hra.Miestnost;
+import miestnosti.Miestnost;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

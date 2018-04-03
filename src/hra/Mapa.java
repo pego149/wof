@@ -1,6 +1,7 @@
 package hra;
 
 
+import miestnosti.Miestnost;
 import itemy.PortalGun;
 import hrac.Hrac;
 import dvere.PodmienkyVstupu;

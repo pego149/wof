@@ -2,7 +2,7 @@ package dvere;
 
 
 import hrac.Hrac;
-import hra.Miestnost;
+import miestnosti.Miestnost;
 import dvere.IDvere;
 
 /*

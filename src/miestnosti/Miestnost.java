@@ -1,9 +1,11 @@
-package hra;
+package miestnosti;
 
 
 import itemy.IItem;
 import dvere.IDvere;
+import hra.Prikaz;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import npc.IPokecatelny;
@@ -168,5 +170,9 @@ public class Miestnost {
         }
         predmety.remove(hladany);
         return hladany;
+    }
+    
+    public Collection<IDvere> getVsetkyDvere() {
+        return this.miestnosti.values();
     }
 }

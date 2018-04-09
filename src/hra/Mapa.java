@@ -10,10 +10,12 @@ import itemy.Kluc;
 import dvere.ZamykatelneDvere;
 import dvere.IDvere;
 import dvere.Dvere;
+import dvere.VytahoveDvere;
 import itemy.Item;
 import itemy.ItemType;
 import itemy.Navleky;
 import java.util.ArrayList;
+import miestnosti.Vytah;
 import npc.Vratnik;
 
 /*
@@ -53,9 +55,10 @@ public class Mapa {
         Miestnost kancelaria = new Miestnost("kancelaria", "kancelaria spravcu pocitacoveho laboratoria");
         Miestnost fra12 = new Miestnost("FRA12", "FRA12 - Najs ucebna", true);
         Miestnost chodba = new Miestnost("chodba", "Chodba - Pozor smyka sa");
-        Miestnost vytah = new Miestnost("vytah", "vytah - nefugnuje");
         Miestnost infocentrum = new Miestnost("infocentrum", "infocentrum - questovna");
         Miestnost vratnica = new Miestnost("vratnica", "vratnica - straty a nalezy");
+        Vytah vytah = new Vytah("vytah", "vytah - funguje", -1, 3);
+        Miestnost dolnaChodba = new Miestnost("dolnaChodba", "Dolna chodba - pri Cecku");
         this.miestnosti.add(terasa);
         this.miestnosti.add(aula);
         this.miestnosti.add(bufet);
@@ -83,9 +86,12 @@ public class Mapa {
         Dvere dChodbaFra12 = new Dvere(chodba, fra12, PodmienkyVstupu.PODMIENKA_ISIC);
         chodba.nastavVychod(fra12.getNazov(), dChodbaFra12);
         fra12.nastavVychod(chodba.getNazov(), dChodbaFra12);
-        Dvere dChodbaVytah = new Dvere(chodba, vytah, PodmienkyVstupu.PODMIENKA_ZIADNA);
+        VytahoveDvere dChodbaVytah = new VytahoveDvere(chodba, vytah, PodmienkyVstupu.PODMIENKA_ZIADNA, vytah, 0);
         chodba.nastavVychod(vytah.getNazov(), dChodbaVytah);
-        vytah.nastavVychod(chodba.getNazov(), dChodbaVytah);    
+        vytah.nastavVychod(chodba.getNazov(), dChodbaVytah);
+        VytahoveDvere dDolnaChodbaVytah = new VytahoveDvere(dolnaChodba, vytah, PodmienkyVstupu.PODMIENKA_ZIADNA, vytah, -1);
+        dolnaChodba.nastavVychod(vytah.getNazov(), dDolnaChodbaVytah);
+        vytah.nastavVychod(dolnaChodba.getNazov(), dDolnaChodbaVytah);
         Dvere dChodbaTerasa = new Dvere(chodba, terasa, PodmienkyVstupu.PODMIENKA_ZIADNA);
         chodba.nastavVychod(terasa.getNazov(), dChodbaTerasa);
         terasa.nastavVychod(chodba.getNazov(), dChodbaTerasa);

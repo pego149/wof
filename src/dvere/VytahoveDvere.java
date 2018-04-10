@@ -40,6 +40,7 @@ public class VytahoveDvere extends Dvere implements IPrikazy{
         String nazov = prikaz.getNazov();
         if (nazov.equals("zavolajVytah")) {
             this.vytah.zavolajVytah(poschodie);
+            System.out.println("Vytah bol zavolany.");
         }
         return false;
     }

@@ -10,6 +10,7 @@ import dvere.VytahoveDvere;
 import hra.IPrikazy;
 import hra.Prikaz;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -23,12 +24,14 @@ public class Vytah extends Miestnost implements IPrikazy{
     };
     private int najnizsiePoschodie;
     private int najvyssiePoschodie;
+    private ArrayList<IDvere> aktivovaneDvere;
     
     public Vytah(String nazov, String popis, int min, int max) {
         super(nazov, popis);
         this.poschodie = 0;
         this.najnizsiePoschodie = min;
         this.najvyssiePoschodie = max;
+        this.aktivovaneDvere = new ArrayList<>();
     }
 
     @Override
@@ -53,6 +56,7 @@ public class Vytah extends Miestnost implements IPrikazy{
                     System.out.println("Take poschodie neexistuje");
                     break;
                 }
+                this.zavolajVytah(vyslednePoschodie);
                 break;
             case "vypisPoschodia":
                 for (int i = this.najnizsiePoschodie; i <= this.najvyssiePoschodie; i++) {
@@ -73,12 +77,22 @@ public class Vytah extends Miestnost implements IPrikazy{
 
     public void zavolajVytah(int poschodie) {
         this.poschodie = poschodie;
+        this.aktivovaneDvere.clear();
+        for (Map.Entry<String, IDvere> data : this.getDvere().entrySet()) {
+            if(data.getValue() instanceof VytahoveDvere) {
+                VytahoveDvere vytahDvere = (VytahoveDvere) data.getValue();
+                if (vytahDvere.getPoschodie() == this.poschodie) {
+                    this.aktivovaneDvere.add(data.getValue());
+                    return;
+                }
+            }
+        }
     }
     
     public void vypisVychody() {
         System.out.println("Teraz si v miestnosti " + this.getPopis());
         System.out.print("Vychody: ");
-        for (Map.Entry<String, IDvere> data : this.getMiestnosti().entrySet()) {
+        for (Map.Entry<String, IDvere> data : this.getDvere().entrySet()) {
             if(data.getValue() instanceof VytahoveDvere) {
                 VytahoveDvere vytahDvere = (VytahoveDvere) data.getValue();
                 if (vytahDvere.getPoschodie() == this.poschodie) {
@@ -92,7 +106,7 @@ public class Vytah extends Miestnost implements IPrikazy{
     
     @Override
     public IDvere getPrechod(String ciel) {
-        IDvere prechod = this.getMiestnosti().get(ciel);
+        IDvere prechod = this.getDvere().get(ciel);
         if (prechod instanceof VytahoveDvere) {
             VytahoveDvere vytahDvere = (VytahoveDvere) prechod;
             if (vytahDvere.getPoschodie() == this.poschodie) {
@@ -104,5 +118,19 @@ public class Vytah extends Miestnost implements IPrikazy{
         }
         System.out.println("Toto nema nikdy nastat. - VytahException");
         return null;
+    }
+    
+    public Collection<IDvere> getVsetkyDvere() {
+        return this.aktivovaneDvere;
+    }
+    
+    public void nastavDvere(String nazovDveri, IDvere dvere) {
+        if (dvere instanceof VytahoveDvere) {
+            VytahoveDvere vytahDvere = (VytahoveDvere) dvere;
+            if (vytahDvere.getPoschodie() == this.poschodie) {
+                this.aktivovaneDvere.add(dvere);
+            }
+        }
+        super.nastavVychod(nazovDveri, dvere);
     }
 }

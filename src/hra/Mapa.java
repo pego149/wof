@@ -59,6 +59,9 @@ public class Mapa {
         Miestnost vratnica = new Miestnost("vratnica", "vratnica - straty a nalezy");
         Vytah vytah = new Vytah("vytah", "vytah - funguje", -1, 3);
         Miestnost dolnaChodba = new Miestnost("dolnaChodba", "Dolna chodba - pri Cecku");
+        Miestnost dekanat = new Miestnost("dekanat", "Dekanát - tu sa riesia problemy");
+        Miestnost atg = new Miestnost("atg", "ATG");
+        Miestnost fra323 = new Miestnost("fra323", "FRA 323 - you are here");
         this.miestnosti.add(terasa);
         this.miestnosti.add(aula);
         this.miestnosti.add(bufet);
@@ -69,6 +72,10 @@ public class Mapa {
         this.miestnosti.add(vytah);
         this.miestnosti.add(infocentrum);      
         this.miestnosti.add(vratnica);
+        this.miestnosti.add(dolnaChodba);
+        this.miestnosti.add(dekanat);
+        this.miestnosti.add(atg);
+        this.miestnosti.add(fra323);
         
          // inicializacia miestnosti = nastavenie vychodov
         Dvere dTerasaAula = new Dvere(terasa, aula, PodmienkyVstupu.PODMIENKA_ZIADNA);
@@ -92,6 +99,15 @@ public class Mapa {
         VytahoveDvere dDolnaChodbaVytah = new VytahoveDvere(dolnaChodba, vytah, PodmienkyVstupu.PODMIENKA_ZIADNA, vytah, -1);
         dolnaChodba.nastavVychod(vytah.getNazov(), dDolnaChodbaVytah);
         vytah.nastavVychod(dolnaChodba.getNazov(), dDolnaChodbaVytah);
+        VytahoveDvere dDekanatVytah = new VytahoveDvere(dekanat, vytah, PodmienkyVstupu.PODMIENKA_ZIADNA, vytah, 1);
+        dekanat.nastavVychod(vytah.getNazov(), dDekanatVytah);
+        vytah.nastavVychod(dekanat.getNazov(), dDekanatVytah);
+        VytahoveDvere dAtgVytah = new VytahoveDvere(atg, vytah, PodmienkyVstupu.PODMIENKA_ZIADNA, vytah, 2);
+        atg.nastavVychod(vytah.getNazov(), dAtgVytah);
+        vytah.nastavVychod(atg.getNazov(), dAtgVytah);
+        VytahoveDvere dFRA323Vytah = new VytahoveDvere(fra323, vytah, PodmienkyVstupu.PODMIENKA_ZIADNA, vytah, 3);
+        fra323.nastavVychod(vytah.getNazov(), dFRA323Vytah);
+        vytah.nastavVychod(fra323.getNazov(), dFRA323Vytah);
         Dvere dChodbaTerasa = new Dvere(chodba, terasa, PodmienkyVstupu.PODMIENKA_ZIADNA);
         chodba.nastavVychod(terasa.getNazov(), dChodbaTerasa);
         terasa.nastavVychod(chodba.getNazov(), dChodbaTerasa);

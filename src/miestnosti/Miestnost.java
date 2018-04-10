@@ -3,6 +3,7 @@ package miestnosti;
 
 import itemy.IItem;
 import dvere.IDvere;
+import dvere.VytahoveDvere;
 import hra.Prikaz;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +30,7 @@ public class Miestnost {
     private Miestnost juznyVychod;
     private Miestnost vychodnyVychod;
     private Miestnost zapadnyVychod;
-    private HashMap<String, IDvere> miestnosti;
+    private HashMap<String, IDvere> dvere;
     private HashMap<String, IPokecatelny> npc;
     private ArrayList<IItem> predmety;
     private boolean trebaNavleky;
@@ -46,7 +47,7 @@ public class Miestnost {
     public Miestnost(String nazov, String popis) {
         this.popisMiestnosti = popis;
         this.nazovMiestnosti = nazov;
-        this.miestnosti = new HashMap<>();
+        this.dvere = new HashMap<>();
         this.predmety = new ArrayList<>();
         this.trebaNavleky = false;
         this.npc = new HashMap<>();
@@ -55,7 +56,7 @@ public class Miestnost {
     public Miestnost(String nazov, String popis, boolean trebaNavleky) {
         this.popisMiestnosti = popis;
         this.nazovMiestnosti = nazov;
-        this.miestnosti = new HashMap<>();
+        this.dvere = new HashMap<>();
         this.predmety = new ArrayList<>();
         this.trebaNavleky = trebaNavleky;
         this.npc = new HashMap<>();
@@ -110,13 +111,13 @@ public class Miestnost {
      * @param zapad miestnost smerom na zapad.
      */
     public void nastavVychod(String nazovDveri, IDvere dvere) {
-            this.miestnosti.put(nazovDveri, dvere);        
+            this.dvere.put(nazovDveri, dvere);        
     }
     
     public void vypisVychody() {
         System.out.println("Teraz si v miestnosti " + this.getPopis());
         System.out.print("Vychody: ");
-        for (Map.Entry<String, IDvere> data : this.miestnosti.entrySet()) {
+        for (Map.Entry<String, IDvere> data : this.dvere.entrySet()) {
             System.out.print(data.getKey() + " ");
         }
         if (this.portalOrange != null) {
@@ -139,7 +140,7 @@ public class Miestnost {
     }
     
     public IDvere getPrechod(String ciel) {
-        return this.miestnosti.get(ciel);
+        return this.dvere.get(ciel);
     }
     
     public void vypisPredmety() {
@@ -173,10 +174,10 @@ public class Miestnost {
     }
     
     public Collection<IDvere> getVsetkyDvere() {
-        return this.miestnosti.values();
+        return this.dvere.values();
     }
 
-    protected HashMap<String, IDvere> getMiestnosti() {
-        return miestnosti;
+    protected HashMap<String, IDvere> getDvere() {
+        return dvere;
     }
 }

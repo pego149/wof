@@ -208,8 +208,20 @@ public class Hra  {
                 return false;
             }
             default:
-                return false;
+                break;
         }
+        Miestnost aktualnaMiestnost = this.mapa.getAktualnaMiestnost();
+        if (aktualnaMiestnost instanceof IPrikazy) {
+            IPrikazy prikazovaMiestnost = (IPrikazy)aktualnaMiestnost;
+            prikazovaMiestnost.spracujPrikaz(prikaz);
+        }
+        for (IDvere dvere : aktualnaMiestnost.getVsetkyDvere()) {
+            if (dvere instanceof IPrikazy) {
+                IPrikazy prikazoveDvere = (IPrikazy)dvere;
+                prikazoveDvere.spracujPrikaz(prikaz);
+            }
+        }
+        return false;
     }
 
     // implementacie prikazov:
@@ -228,8 +240,7 @@ public class Hra  {
         if (this.hrac.getInventar().maItem("PortalGun")) {
            System.out.print(" portalGunOrange portalGunBlue");
         }
-        System.out.println();
-        this.mapa.getAktualnaMiestnost().vypisVychody();
+        
         
         Miestnost aktualnaMiestnost = this.mapa.getAktualnaMiestnost();
         if (aktualnaMiestnost instanceof IPrikazy) {
@@ -242,6 +253,8 @@ public class Hra  {
                 prikazoveDvere.getPrikazy();
             }
         }
+        System.out.println();
+        this.mapa.getAktualnaMiestnost().vypisVychody();
     }
 
     /** 
@@ -288,12 +301,12 @@ public class Hra  {
             Miestnost aktualnaMiestnost = this.mapa.getAktualnaMiestnost();
             if (aktualnaMiestnost instanceof IPrikazy) {
                 IPrikazy prikazovaMiestnost = (IPrikazy)aktualnaMiestnost;
-                prikazovaMiestnost.getPrikazy();
+                poliaPrikazov.add(prikazovaMiestnost.getPLATNE_PRIKAZY());
             }
             for (IDvere dvere : aktualnaMiestnost.getVsetkyDvere()) {
                 if (dvere instanceof IPrikazy) {
                     IPrikazy prikazoveDvere = (IPrikazy)dvere;
-                    prikazoveDvere.getPrikazy();
+                    poliaPrikazov.add(prikazoveDvere.getPLATNE_PRIKAZY());
                 }
             }
             for (String[] polePrikazov : poliaPrikazov) {

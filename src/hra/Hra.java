@@ -6,7 +6,10 @@ import hrac.Hrac;
 import itemy.IItem;
 import dvere.ZamykatelneDvere;
 import dvere.IDvere;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import miestnosti.Miestnost;
 import npc.IPokecatelny;
 
@@ -45,11 +48,12 @@ public class Hra  {
     /**
      * Vytvori a inicializuje hru.
      */
-    public Hra() {
+    public Hra() throws IOException {
         this.parser = new Parser(this);
         this.hrac = new Hrac();
         this.mapa = new Mapa(this);
         this.portalGun = new PortalGun(this);
+        this.nacitaj();
     }
 
     public Mapa getMapa() {
@@ -319,5 +323,163 @@ public class Hra  {
         }
         // ak algoritmus dosiahne tento bod, parameter nie je platny prikaz
         return false;
+    }
+    
+    public void nacitaj() throws IOException{
+        File subor = new File("C:\\Users\\cani3\\Desktop\\01wof\\src\\subor.txt");
+        Scanner citac = new Scanner(subor);
+        while (citac.hasNextLine()) {
+            String riadok = citac.nextLine();
+            String typ = "";
+            for (int i = 0; i < riadok.length(); i++) {
+                if (riadok.charAt(i) == ':' || riadok.charAt(i) == '\t') {
+                    break;
+                }
+                typ += riadok.charAt(i);
+            }
+            String nazov = "";
+            String trieda = "";
+            String nazovVTriede = "";
+            String popisVTriede = "";
+            int vytahOd = 0;
+            int vytahDo = 0;
+            int vytahDefault = 0;
+            switch(typ) {
+                case "miestnost":
+                    int x = 10;
+                    for (int i = x; i < riadok.length(); i++) {
+                        if(riadok.charAt(i) == '[') {
+                            x++;
+                            break;
+                        }
+                        nazov += riadok.charAt(i);
+                        x++;
+                    }
+                    for (int i = x; i < riadok.length(); i++) {
+                        if(riadok.charAt(i) == ']') {
+                            x++;
+                            break;
+                        }
+                        trieda += riadok.charAt(i);
+                        x++;
+                    }
+                    for (int i = x + 1; i < riadok.length(); i++) {
+                        if(riadok.charAt(i) == ',') {
+                            x++;
+                            break;
+                        }
+                        nazovVTriede += riadok.charAt(i);
+                        x++;
+                    }
+                    for (int i = x + 1; i < riadok.length(); i++) {
+                        if(riadok.charAt(i) == ')' || riadok.charAt(i) == ',') {
+                            x++;
+                            break;
+                        }
+                        popisVTriede += riadok.charAt(i);
+                        x++;
+                    }
+                    if(trieda.equals("vytah")) {
+                        String s = "";
+                        for (int i = x + 1; i < riadok.length(); i++) {
+                            if(riadok.charAt(i) == ')' || riadok.charAt(i) == ',') {
+                                x++;
+                                break;
+                            }
+                            s += riadok.charAt(i);
+                            x++;
+                        }
+                        vytahOd = Integer.parseInt(s);
+                        s = "";
+                        for (int i = x + 1; i < riadok.length(); i++) {
+                            if(riadok.charAt(i) == ')' || riadok.charAt(i) == ',') {
+                                x++;
+                                break;
+                            }
+                            s += riadok.charAt(i);
+                            x++;
+                        }
+                        vytahDo = Integer.parseInt(s);
+                        s = "";
+                        for (int i = x + 1; i < riadok.length(); i++) {
+                            if(riadok.charAt(i) == ')' || riadok.charAt(i) == ',') {
+                                x++;
+                                break;
+                            }
+                            s += riadok.charAt(i);
+                            x++;
+                        }
+                        vytahDefault = Integer.parseInt(s);
+                    }
+                    String param = "";
+                    riadok = citac.nextLine();
+                    for (int i = 1; i < riadok.length(); i++) {
+                        if (riadok.charAt(i) == ':') {
+                            break;
+                        }
+                        param += riadok.charAt(i);
+                    }
+                    System.out.println(param);
+                    String nazovVchodu = "";
+                    while (!nazovVchodu.equals("estnost")) {
+                        riadok = citac.nextLine();
+                        for (int i = 2; i < riadok.length(); i++) {
+                            if (riadok.charAt(i) == ':') {
+                                break;
+                            }
+                            nazovVchodu += riadok.charAt(i);
+                        }
+                        System.out.println(nazovVchodu);
+                    }
+                    riadok = citac.nextLine();
+                    typ = "";
+                    
+            }
+            
+            System.out.println(typ);
+            System.out.println(nazov);
+            System.out.println(trieda);
+            System.out.println(nazovVTriede);
+            System.out.println(popisVTriede);
+            System.out.println(vytahOd);
+            System.out.println(vytahDo);
+            System.out.println(vytahDefault);
+        }
+        
+        /**
+        this.pocetVrcholov = citac.nextInt();
+        for(int i = 1; i <= this.pocetVrcholov; i++){
+            this.vrcholy.add(new Vrchol(i));
+        }
+        citac.hasNextLine();
+        while (citac.hasNextLine()) {
+            int vrcholA = citac.nextInt();
+            int vrcholB = citac.nextInt();
+            if (prvy == 0) {
+                vrcholA++;
+                vrcholB++;
+            }
+            int ohodnotenieHrany = 1;
+            if (ajOhodnotenie) {
+                ohodnotenieHrany = citac.nextInt();
+            }
+            for(Vrchol v1 : this.vrcholy){
+                if (vrcholA == v1.getZnak()) {
+                    for(Vrchol v2 : this.vrcholy){
+                        if (vrcholB == v2.getZnak()) {
+                            Hrana h1 = new Hrana(v1,v2,ohodnotenieHrany);
+                            this.hrany.add(h1);
+                            v1.pridajHranu(h1);
+                            if (!digraf) {
+                                Hrana h2 = new Hrana(v2,v1,ohodnotenieHrany);
+                                this.hrany.add(h2);
+                                v2.pridajHranu(h2);
+                            }
+                        }
+                    }
+                }
+            }
+        }**/
+        citac.close();
     }
 }

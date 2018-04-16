@@ -1,0 +1,80 @@
+miestnost:terasa[miestnost](terasa,terasa - hlavny vstup na fakultu)
+	vchody:
+		chodba
+		fra12
+		aula
+		
+		labak
+
+		bufet
+
+miestnost:aula[miestnost](aula,aula)
+	vchody:
+		terasa
+
+miestnost:bufet[miestnost](bufet,bufet)
+	vchody:
+		chodba[ISIC]
+		terasa
+	itemy:
+		Navleky("Navleky", "Made in China",20)
+
+miestnost:labak[miestnost](pocitacoveLaboratorium,pocitacove laboratorium)
+	vchody:
+		chodba
+		terasa
+		kancelaria[kluc]
+
+miestnost:kancelaria[miestnost](kancelaria,kancelaria spravcu pocitacoveho laboratoria)
+	vchody:
+		labak[kluc]
+
+miestnost:fra12[miestnost](FRA12,Najs ucebna,true)
+	vchody:
+		chodba
+
+miestnost:chodba[miestnost](chodba,Pozor smyka sa)
+	vchody:
+		fra12[ISIC]
+		vytah
+		terasa
+		labak
+		vratnica
+
+miestnost:infocentrum[miestnost](infocentrum,Questnovna)
+	vchody:
+		vratnica
+	itemy:
+		ISIC()
+
+miestnost:vratnica[miestnost](vratnica,Straty a nalezy)
+	vchody:
+		chodba
+		infocentrum
+
+miestnost:vytah[vytah](Vytah,Vytah v chodbe,-1,3,0)
+	vchody:
+		chodba
+		dolnaChodba
+
+miestnost:dolnaChodba[miestnost](dolnachodba,Chodba na dolnom poschodi)
+	vchody:
+		vytah
+
+miestnost:dekanat[miestnost](dekanat,Dekanat na prvom poschodi)
+	vchody:
+		vytah
+
+miestnost:atg[miestnost](atg,Ucebna ATG)
+	vchody:
+		vytah
+
+miestnost:fra323[miestnost](fra323,Nahodna ucebna)
+	vchody:
+		vytah
+
+NPC:Vratnik[vratnik](vratnica)
+	itemy:
+		Kluc("StriebornyKluc","",-1, labak->kancelaria)
+
+aktualnaMiestnost:terasa
